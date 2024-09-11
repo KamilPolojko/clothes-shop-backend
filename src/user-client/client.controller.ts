@@ -1,17 +1,22 @@
 import {
-  Body,
   Controller,
   Delete,
   Get,
   Param,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetClientsQuery } from './queries/impl/get-clients.query';
-import { ClientDTO } from './commands/dto/client.dto';
+import { signUpClientDTO } from './commands/dto/signUp-client.dto';
 import { CreateClientCommand } from './commands/impl/create-client.command';
 import { ApiConsumes } from '@nestjs/swagger';
 import { DeleteClientCommand } from './commands/impl/delete-client.command';
+import { AuthenticatedGuard } from '../auth/authenticated.guard';
+import { Client } from './entities/client.entity';
+
+export type RequestWithUser = Request & { user: Client };
 
 @Controller('/client')
 export class ClientController {
@@ -20,6 +25,7 @@ export class ClientController {
     private commandBus: CommandBus,
   ) {}
 
+  @UseGuards(AuthenticatedGuard)
   @Get('/clients')
   async getAllClients() {
     return await this.queryBus.execute(new GetClientsQuery());
@@ -27,10 +33,17 @@ export class ClientController {
 
   @Post('/register')
   @ApiConsumes('application/x-www-form-urlencoded')
-  async createClient(@Body() dto: ClientDTO) {
+  async signup(@Param() dto: signUpClientDTO) {
     await this.commandBus.execute(new CreateClientCommand(dto));
   }
 
+  @UseGuards(AuthenticatedGuard)
+  @Get('/me')
+  async getMe(@Req() request: RequestWithUser) {
+    return request.user;
+  }
+
+  @UseGuards(AuthenticatedGuard)
   @Delete('/clients/:uuid')
   async deleteClient(@Param('uuid') uuid: string) {
     await this.commandBus.execute(new DeleteClientCommand(uuid));

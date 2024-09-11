@@ -7,6 +7,9 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { GetClientsQueryHandler } from './queries/handler/get-clients-query.handler';
 import { CreateClientCommandHandler } from './commands/handler/create-client-command.handler';
 import { DeleteClientCommandHandler } from './commands/handler/delete-client-command.handler';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([Client])],
@@ -17,6 +20,6 @@ import { DeleteClientCommandHandler } from './commands/handler/delete-client-com
     CreateClientCommandHandler,
     DeleteClientCommandHandler,
   ],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, ClientService],
 })
 export class ClientModule {}

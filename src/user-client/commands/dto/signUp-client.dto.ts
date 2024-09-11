@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 import { NoWhitespace } from '../../decorators/no-whitespace.decorator';
 
-export class ClientDTO {
+export class signUpClientDTO {
   @ApiProperty({
     default: '',
   })

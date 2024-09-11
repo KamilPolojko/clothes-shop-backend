@@ -1,4 +1,4 @@
-import { Client } from '../user-client/entities/client.entity';
+import { Client } from '../src/user-client/entities/client.entity';
 import * as process from 'node:process';
 import * as dotenv from 'dotenv';
 import { DataSourceOptions, DataSource } from 'typeorm';

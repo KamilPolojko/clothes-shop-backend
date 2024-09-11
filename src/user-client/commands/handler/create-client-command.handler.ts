@@ -9,6 +9,6 @@ export class CreateClientCommandHandler
   constructor(private readonly clientService: ClientService) {}
 
   async execute(command: CreateClientCommand) {
-    await this.clientService.create(command.clientDTO);
+    await this.clientService.signUp(command.clientDTO);
   }
 }

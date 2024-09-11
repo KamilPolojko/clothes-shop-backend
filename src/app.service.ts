@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import * as process from 'node:process';
+import { ClientService } from './user-client/client.service';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return process.env.DATABASE_NAME;
+  constructor(private clientService: ClientService) {}
+
+  async getHello() {
+    return await this.clientService.findOneByEmail(
+      'janBrz@gmail.com',
+    );
   }
 }

@@ -3,8 +3,9 @@ import { AppController } from './app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { ConfigModule} from '@nestjs/config';
-import { ClientModule } from '../user-client/client.module';
+import { ClientModule } from './user-client/client.module';
 import { dataSourceOptions } from '../db/data-source';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { dataSourceOptions } from '../db/data-source';
     }),
     TypeOrmModule.forRoot(dataSourceOptions),
     ClientModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ClientController } from './client.controller';
-import { ClientService } from './client.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Client } from './entities/client.entity';
 import { CqrsModule } from '@nestjs/cqrs';
-import { GetClientsQueryHandler } from './queries/handler/get-clients-query.handler';
-import { CreateClientCommandHandler } from './commands/handler/create-client-command.handler';
-import { DeleteClientCommandHandler } from './commands/handler/delete-client-command.handler';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CreateClientCommandHandler } from '../user-client/commands/handler/create-client-command.handler';
+import { DeleteClientCommandHandler } from '../user-client/commands/handler/delete-client-command.handler';
+import { Client } from '../user-client/entities/client.entity';
+import { ClientService } from '../user-client/client.service';
+import { GetClientsQueryHandler } from '../user-client/queries/handler/get-clients-query.handler';
+import { ClientController } from '../user-client/client.controller';
 
 
 @Module({

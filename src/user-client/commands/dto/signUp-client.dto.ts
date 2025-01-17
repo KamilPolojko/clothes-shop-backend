@@ -9,7 +9,7 @@ import {
   IsStrongPassword,
   MaxLength,
 } from 'class-validator';
-import { NoWhitespace } from '../../decorators/no-whitespace.decorator';
+import { NoWhitespace } from '../../../../modules/decorators/no-whitespace.decorator';
 
 export class signUpClientDTO {
   @ApiProperty({

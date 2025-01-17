@@ -2,7 +2,7 @@ import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { LocalAuthGuard } from './local-auth.guard';
 import { ApiConsumes } from '@nestjs/swagger';
-import { signInClientDTO } from '../user-client/queries/dto/signIn-client.dto';
+import { signInClientDTO } from './signIn-client.dto';
 
 @Controller('/auth')
 export class AuthController {

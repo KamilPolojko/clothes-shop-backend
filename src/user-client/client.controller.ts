@@ -9,12 +9,12 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetClientsQuery } from './queries/impl/get-clients.query';
-import { signUpClientDTO } from './commands/dto/signUp-client.dto';
 import { CreateClientCommand } from './commands/impl/create-client.command';
 import { ApiConsumes } from '@nestjs/swagger';
 import { DeleteClientCommand } from './commands/impl/delete-client.command';
 import { AuthenticatedGuard } from '../auth/authenticated.guard';
 import { Client } from './entities/client.entity';
+import { createClientDTO } from './commands/dto/create-client.dto';
 
 export type RequestWithUser = Request & { user: Client };
 
@@ -33,7 +33,7 @@ export class ClientController {
 
   @Post('/register')
   @ApiConsumes('application/x-www-form-urlencoded')
-  async signup(@Param() dto: signUpClientDTO) {
+  async signup(@Param() dto: createClientDTO) {
     await this.commandBus.execute(new CreateClientCommand(dto));
   }
 

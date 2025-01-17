@@ -1,5 +1,5 @@
-import { signUpClientDTO } from '../dto/signUp-client.dto';
+import { createClientDTO } from '../dto/create-client.dto';
 
 export class CreateClientCommand {
-  constructor(public readonly clientDTO: signUpClientDTO) {}
+  constructor(public readonly clientDTO: createClientDTO) {}
 }

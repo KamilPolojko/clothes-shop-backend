@@ -1,13 +1,10 @@
-import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Client } from './entities/client.entity';
 import { Repository } from 'typeorm';
-import { signUpClientDTO } from './commands/dto/signUp-client.dto';
 import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcryptjs';
+import { createClientDTO } from './commands/dto/create-client.dto';
 
 @Injectable()
 export class ClientService {
@@ -27,7 +24,7 @@ export class ClientService {
   async findOneByEmail(email: string): Promise<Client | null> {
     return await this.clientRepository.findOneBy({ email });
   }
-  async signUp(dto: signUpClientDTO) {
+  async signUp(dto: createClientDTO) {
     const { password } = dto;
     const id = uuidv4();
     dto.password = await bcrypt.hash(password, 10);
